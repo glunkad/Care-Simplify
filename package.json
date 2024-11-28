@@ -1,0 +1,26 @@
+{
+  "name": "care-simplify",
+  "source": "index.html",
+  "scripts": {
+    "start": "parcel",
+    "build": "parcel build"
+  },
+  "version": "1.0.0",
+  "description": "CareSimplify is an intelligent platform that leverages machine learning to analyze patient reports, providing simplified and human-understandable summaries. It enables users to upload reports and interact through a chat interface to gain deeper insights, ensuring clarity and informed care decisions.",
+  "main": "index.js",
+  "author": "Gunjan",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.7.8",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "buffer": "^5.5.0||^6.0.0",
+    "parcel": "^2.13.2",
+    "postcss": "^8.4.49",
+    "process": "^0.11.10",
+    "tailwindcss": "^3.4.15"
+  }
+}
