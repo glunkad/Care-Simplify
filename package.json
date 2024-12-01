@@ -7,7 +7,6 @@
   },
   "version": "1.0.0",
   "description": "CareSimplify is an intelligent platform that leverages machine learning to analyze patient reports, providing simplified and human-understandable summaries. It enables users to upload reports and interact through a chat interface to gain deeper insights, ensuring clarity and informed care decisions.",
-  "main": "index.js",
   "author": "Gunjan",
   "license": "MIT",
   "dependencies": {

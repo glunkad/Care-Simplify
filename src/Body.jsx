@@ -7,9 +7,9 @@ const Body = () => {
     return (
         <div className="flex">
             <Sidebar />
-            {/*<Upload />*/}
-            <Preview />
-            <Chat />
+            <Upload />
+            {/*<Preview />*/}
+            {/*<Chat />*/}
 
         </div>
     )
