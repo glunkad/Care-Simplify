@@ -5,7 +5,7 @@ import Preview from "./components/Preview";
 
 const Body = () => {
     return (
-        <div className="flex">
+        <div className="flex h-screen w-full">
             <Sidebar />
             <Upload />
             {/*<Preview />*/}

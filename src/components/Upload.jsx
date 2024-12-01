@@ -39,7 +39,7 @@ const Upload = () => {
     };
 
     return (
-        <div className="bg-orange-300 w-screen p-6 flex justify-center items-center">
+        <div className="bg-orange-300 w-full p-6 flex justify-center items-center">
             <div className="border-8 p-6 rounded-2xl bg-white border-transparent">
                 <div
                     className="px-52 py-16 flex flex-col justify-center items-center cursor-pointer text-center border-2 rounded-xl border-dashed"
