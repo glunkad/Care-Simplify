@@ -1,40 +1,39 @@
-import { useState } from "react";
+import React from "react";
+import { Viewer, Worker } from "@react-pdf-viewer/core";
+import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
+
+import "@react-pdf-viewer/core/lib/styles/index.css";
+import "@react-pdf-viewer/default-layout/lib/styles/index.css";
+
+import useSharedFile from "../utils/useSharedFile";
 
 const Preview = () => {
-    const [pdfUrl, setPdfUrl] = useState(null);
+    const { sharedFile } = useSharedFile(); // Access the shared file
+    const defaultLayoutPluginInstance = defaultLayoutPlugin();
 
-    const handleFileChange = (event) => {
-        const selectedFile = event.target.files[0];
-        if (selectedFile && selectedFile.type === "application/pdf") {
-            const fileUrl = URL.createObjectURL(selectedFile);
-            setPdfUrl(fileUrl);
-        } else {
-            alert("Please select a valid PDF file.");
+    const getPdfUrl = () => {
+        if (sharedFile) {
+            return URL.createObjectURL(sharedFile); // Convert the file to a blob URL
         }
+        return null;
     };
 
+    const pdfUrl = getPdfUrl();
+
     return (
-        <div className="w-5/12 p-4 bg-green-300 flex flex-col items-center">
-            {/*<input*/}
-            {/*    type="file"*/}
-            {/*    accept="application/pdf"*/}
-            {/*    className="mb-4 border border-gray-400 rounded px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"*/}
-            {/*    onChange={handleFileChange}*/}
-            {/*/>*/}
-            <div className="w-full max-w-4xl h-[500px] bg-white border border-gray-300 rounded-lg shadow-lg overflow-hidden">
-                {pdfUrl ? (
-                    <iframe
-                        src={pdfUrl}
-                        title="PDF Preview"
-                        className="w-full h-full rounded-lg border-none"
-                    />
-                ) : (
-                    <p className="text-center text-gray-600 pt-20">
-                        No PDF loaded
-                    </p>
-                )}
+        <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.15.349/build/pdf.worker.js">
+            <div className="w-full p-4 bg-gray-100 flex flex-col items-center">
+                <div className="w-full max-w-4xl h-[500px] bg-white border border-gray-300 rounded-lg shadow-lg overflow-hidden">
+                    {pdfUrl ? (
+                        <Viewer fileUrl={pdfUrl} plugins={[defaultLayoutPluginInstance]} />
+                    ) : (
+                        <p className="text-center text-gray-600 pt-20">
+                            No PDF loaded. Please upload a file.
+                        </p>
+                    )}
+                </div>
             </div>
-        </div>
+        </Worker>
     );
 };
 

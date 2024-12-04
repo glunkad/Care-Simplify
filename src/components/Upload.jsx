@@ -1,15 +1,18 @@
 import { useState } from "react";
 import axios from "axios";
+import useSharedFile from "../utils/useSharedFile";
 
 const Upload = () => {
     const [fileName, setFileName] = useState("");
     const [isUploading, setIsUploading] = useState(false);
+    const {setFile} = useSharedFile();
 
     const handleFileChange = async (event) => {
         const selectedFile = event.target.files[0];
         if (selectedFile) {
             if (selectedFile.type === "application/pdf") {
                 setFileName(selectedFile.name);
+                setFile(selectedFile)
                 await uploadFile(selectedFile); // Automatically upload the file
             } else {
                 alert("Only PDF files are allowed.");
