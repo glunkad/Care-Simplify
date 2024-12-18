@@ -5,14 +5,19 @@ import useSharedFile from "../utils/useSharedFile";
 const Upload = () => {
     const [fileName, setFileName] = useState("");
     const [isUploading, setIsUploading] = useState(false);
-    const {setFile} = useSharedFile();
+    const { setFile } = useSharedFile();
+
+    const handleButtonClick = () => {
+        const fileInput = document.getElementById("fileInput");
+        if (fileInput) fileInput.click();
+    };
 
     const handleFileChange = async (event) => {
         const selectedFile = event.target.files[0];
         if (selectedFile) {
             if (selectedFile.type === "application/pdf") {
                 setFileName(selectedFile.name);
-                setFile(selectedFile)
+                setFile(selectedFile);
                 await uploadFile(selectedFile); // Automatically upload the file
             } else {
                 alert("Only PDF files are allowed.");
@@ -42,9 +47,11 @@ const Upload = () => {
     };
 
     return (
-        <div className="bg-orange-300 w-full p-6 flex justify-center items-center">
+        <div className="bg-orange-300 w-full p-0 flex justify-center items-center">
             <div className="border-8 p-6 rounded-2xl bg-white border-transparent">
-                <div
+                {/* Clickable container */}
+                <label
+                    htmlFor="fileInput"
                     className="px-52 py-16 flex flex-col justify-center items-center cursor-pointer text-center border-2 rounded-xl border-dashed"
                 >
                     {/* Hidden file input */}
@@ -55,31 +62,26 @@ const Upload = () => {
                         id="fileInput"
                         onChange={handleFileChange}
                     />
-                    {/* Clickable area */}
-                    <label htmlFor="fileInput">
-                        <img
-                            src="https://www.chatpdf.com/_next/static/media/UploadFileIcon.d8bf32b8.svg"
-                            alt="Upload Icon"
-                            className="h-20 w-16 cursor-pointer"
-                        />
-                    </label>
+                    <img
+                        src="https://www.chatpdf.com/_next/static/media/UploadFileIcon.d8bf32b8.svg"
+                        alt="Upload Icon"
+                        className="h-20 w-16"
+                    />
                     <div>
                         <span>Click to upload, or drag PDF here</span>
                     </div>
                     {/* Upload button */}
                     <div className="my-5">
-                        <label htmlFor="fileInput" className="cursor-pointer">
-                            <button className="cursor-pointer overflow-hidden items-center bg-sky-400 inline-flex justify-center text-white flex-row h-12 rounded-lg">
-                                <span className="flex px-6 items-center">
-                                    <img
-                                        src="https://www.chatpdf.com/_next/static/media/UploadArrowIcon.d1849693.svg"
-                                        alt="Upload Icon"
-                                        className="text-transparent"
-                                    />
-                                    <span className="mx-6">Upload PDF</span>
-                                </span>
-                            </button>
-                        </label>
+                        <button className="cursor-pointer overflow-hidden items-center bg-sky-400 inline-flex justify-center text-white flex-row h-12 rounded-lg" onClick={handleButtonClick}>
+                            <span className="flex px-6 items-center">
+                                <img
+                                    src="https://www.chatpdf.com/_next/static/media/UploadArrowIcon.d1849693.svg"
+                                    alt="Upload Icon"
+                                    className="text-transparent"
+                                />
+                                <span className="mx-6">Upload PDF</span>
+                            </span>
+                        </button>
                     </div>
                     {/* Display selected file name */}
                     {fileName && (
@@ -89,7 +91,7 @@ const Upload = () => {
                     {isUploading && (
                         <p className="text-blue-500 mt-2">Uploading file...</p>
                     )}
-                </div>
+                </label>
             </div>
         </div>
     );

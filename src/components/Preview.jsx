@@ -22,8 +22,7 @@ const Preview = () => {
 
     return (
         <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.15.349/build/pdf.worker.js">
-            <div className="w-full p-4 bg-gray-100 flex flex-col items-center">
-                <div className="w-full max-w-4xl h-[500px] bg-white border border-gray-300 rounded-lg shadow-lg overflow-hidden">
+            <div className="w-2/5 h-auto bg-gray-100 flex flex-col items-center overflow-hidden">
                     {pdfUrl ? (
                         <Viewer fileUrl={pdfUrl} plugins={[defaultLayoutPluginInstance]} />
                     ) : (
@@ -31,7 +30,6 @@ const Preview = () => {
                             No PDF loaded. Please upload a file.
                         </p>
                     )}
-                </div>
             </div>
         </Worker>
     );
