@@ -5,10 +5,10 @@ const Sidebar = () => {
     }
 
     return (
-        <div className="bg-gray-200 w-64 shrink-0 p-3">
+        <aside className="bg-gray-200 w-64 shrink-0 p-3">
             <div className=""><img src="https://www.chatpdf.com/_next/static/media/SidebarLogo.243d2948.svg" alt="Care Simplify"/></div>
             <button className="bg-red-300 text-xl  py-1.5 border rounded-md border-transparent w-full" onClick={handleOnClick}><span className="mr-1">+</span> New Chat</button>
-        </div>
+        </aside>
     )
 }
 

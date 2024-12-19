@@ -48,7 +48,7 @@ const Upload = () => {
 
     return (
         <div className="bg-orange-300 w-full p-0 flex justify-center items-center">
-            <div className="border-8 p-6 rounded-2xl bg-white border-transparent">
+            <div className="border-8 p-6 rounded-2xl bg-white border-transparent shrink-0">
                 {/* Clickable container */}
                 <label
                     htmlFor="fileInput"
@@ -84,13 +84,13 @@ const Upload = () => {
                         </button>
                     </div>
                     {/* Display selected file name */}
-                    {fileName && (
-                        <p className="text-green-600 mt-2">Selected file: {fileName}</p>
-                    )}
+                    {/*{fileName && (*/}
+                    {/*    <p className="text-green-600 mt-2">Selected file: {fileName}</p>*/}
+                    {/*)}*/}
                     {/* Uploading indicator */}
-                    {isUploading && (
-                        <p className="text-blue-500 mt-2">Uploading file...</p>
-                    )}
+                    {/*{isUploading && (*/}
+                    {/*    <p className="text-blue-500 mt-2">Uploading file...</p>*/}
+                    {/*)}*/}
                 </label>
             </div>
         </div>

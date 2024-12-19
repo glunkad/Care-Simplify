@@ -5,20 +5,18 @@ import Preview from "./components/Preview";
 import useSharedFile from "./utils/useSharedFile";
 
 const Body = () => {
-    const sharedFileHook = useSharedFile();
-    const { sharedFile } = sharedFileHook;
+    const { sharedFile } = useSharedFile();
 
     return (
         <div className="flex h-screen w-full">
             <Sidebar />
-            {/*<Upload {...sharedFileHook} />*/}
             {sharedFile ? (
                 <>
-                    <Preview {...sharedFileHook} />
+                    <Preview />
                     <Chat />
                 </>
             ) : (
-                <Upload {...sharedFileHook}/>
+                <Upload />
             )}
         </div>
     );
