@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import {API, TOKEN} from "../utils/constants";
 
 const Chat = () => {
     const [messages, setMessages] = useState([]);
@@ -10,37 +11,70 @@ const Chat = () => {
         chatContainerRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages]);
 
-    const handleSendMessage = (e) => {
+    const handleSendMessage = async (e) => {
         e.preventDefault();
 
         if (input.trim() === "") return;
 
-        // Add the user's message
+        // Add the user's message to the state
         const userMessage = {
             role: "user",
             content: input,
         };
 
-        setMessages([...messages, userMessage]);
-        setInput("");
+        setMessages((prevMessages) => [...prevMessages, userMessage]);
+        setInput(""); // Clear the input after sending
 
-        // Simulate bot response
-        setTimeout(() => {
+        try {
+            // Call Hugging Face API to get the bot response using fetch
+            const response = await fetch(
+                API,
+                {
+                    method: "POST",
+                    headers: {
+                        // "Authorization": "Bearer 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", // Replace with your Hugging Face API key
+                        "Authorization": TOKEN, // Replace with your Hugging Face API key
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        model: "meta-llama/Meta-Llama-3-8B-Instruct",
+                        messages: [{ role: "user", content: input }],
+                        max_tokens: 500,
+                        stream: false,
+                    }),
+                }
+            );
+
+            // Check if the response is okay
+            if (!response.ok) {
+                throw new Error("Failed to fetch response from the API");
+            }
+
+            const data = await response.json(); // Parse the response as JSON
+
+            // Add the bot's response to the messages
             const botMessage = {
                 role: "bot",
-                content: "This is a simulated response from the bot!",
+                content: data.choices[0].message.content, // Extract bot's message
             };
+
             setMessages((prevMessages) => [...prevMessages, botMessage]);
-        }, 1000);
+
+        } catch (error) {
+            console.error("Error fetching response from API:", error);
+            // In case of an error, add a default error message from the bot
+            const botErrorMessage = {
+                role: "bot",
+                content: "Sorry, there was an error fetching the response from the bot.",
+            };
+            setMessages((prevMessages) => [...prevMessages, botErrorMessage]);
+        }
     };
 
     return (
-        <div className="flex h-auto bg-gray-50 items-end">
+        <div className="flex flex-col h-screen bg-gray-50">
             {/* Chat Messages Container */}
-            <div
-                className="flex-1 overflow-y-auto p-4 space-y-4"
-                ref={chatContainerRef}
-            >
+            <div className="flex-1 overflow-y-auto p-4 space-y-4" ref={chatContainerRef}>
                 {messages.map((msg, index) => (
                     <div
                         key={index}
