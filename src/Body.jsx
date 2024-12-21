@@ -10,7 +10,7 @@ const Body = () => {
     return (
         <div className="flex h-screen w-full">
             <Sidebar />
-            {sharedFile ? (
+            {!sharedFile ? (
                 <>
                     <Preview />
                     <Chat />

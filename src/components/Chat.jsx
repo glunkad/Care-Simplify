@@ -1,69 +1,82 @@
-import {useState} from "react";
+import { useEffect, useRef, useState } from "react";
 
 const Chat = () => {
-
-    const [messages, setMessages] = useState([
-        {sender: "bot", text: "Hello! How can I assist you today?"},
-    ]);
+    const [messages, setMessages] = useState([]);
     const [input, setInput] = useState("");
+    const chatContainerRef = useRef(null);
 
-    const handleSendMessage = () => {
-        if (!input.trim()) return;
+    // Scroll to bottom whenever new message is added
+    useEffect(() => {
+        chatContainerRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, [messages]);
 
-        const userMessage = {sender: "user", text: input.trim()};
-        setMessages((prev) => [...prev, userMessage]);
+    const handleSendMessage = (e) => {
+        e.preventDefault();
+
+        if (input.trim() === "") return;
+
+        // Add the user's message
+        const userMessage = {
+            role: "user",
+            content: input,
+        };
+
+        setMessages([...messages, userMessage]);
+        setInput("");
 
         // Simulate bot response
         setTimeout(() => {
-            const botMessage = {sender: "bot", text: "Let me think about that..."};
-            setMessages((prev) => [...prev, botMessage]);
+            const botMessage = {
+                role: "bot",
+                content: "This is a simulated response from the bot!",
+            };
+            setMessages((prevMessages) => [...prevMessages, botMessage]);
         }, 1000);
-
-        setInput(""); // Clear input
     };
 
-
     return (
-        <div>
-            <div className="flex-grow p-4 overflow-y-auto">
-                <div className="space-y-4">
-                    {messages.map((msg, index) => (
+        <div className="flex h-auto bg-gray-50 items-end">
+            {/* Chat Messages Container */}
+            <div
+                className="flex-1 overflow-y-auto p-4 space-y-4"
+                ref={chatContainerRef}
+            >
+                {messages.map((msg, index) => (
+                    <div
+                        key={index}
+                        className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+                    >
                         <div
-                            key={index}
-                            className={`flex ${
-                                msg.sender === "user" ? "justify-end" : "justify-start"
+                            className={`max-w-[75%] p-3 rounded-lg ${
+                                msg.role === "user" ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-800"
                             }`}
                         >
-                            <div
-                                className={`${
-                                    msg.sender === "user" ? "bg-blue-500" : "bg-gray-300"
-                                } text-white px-4 py-2 rounded-lg max-w-xs`}
-                            >
-                                {msg.text}
-                            </div>
+                            {msg.content}
                         </div>
-                    ))}
-                </div>
+                    </div>
+                ))}
             </div>
-            <div className="p-4 bg-white border-t flex items-center">
-                <input
-                    type="text"
-                    className="flex-grow border rounded-lg p-2 mr-4"
-                    placeholder="Type a message..."
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
-                />
-                <button
-                    onClick={handleSendMessage}
-                    className="bg-blue-500 text-white px-4 py-2 rounded-lg"
-                >
-                    Send
-                </button>
+
+            {/* Input Area */}
+            <div className="bg-white p-4 shadow-md rounded-lg">
+                <form onSubmit={handleSendMessage} className="flex items-center space-x-4">
+                    <input
+                        type="text"
+                        className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none"
+                        placeholder="Type a message..."
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                    />
+                    <button
+                        type="submit"
+                        className="p-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                        Send
+                    </button>
+                </form>
             </div>
         </div>
-
-    )
-}
+    );
+};
 
 export default Chat;
