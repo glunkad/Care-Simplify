@@ -10,7 +10,7 @@ import { useSharedFile } from "../utils/useSharedFile";
 const Preview = () => {
     const { sharedFile } = useSharedFile();
     const defaultLayoutPluginInstance = defaultLayoutPlugin();
-    const [pdfUrl, setPdfUrl] = useState(null); // Manage blob URL state
+    const [pdfUrl, setPdfUrl] = useState(null);
 
     useEffect(() => {
         if (sharedFile) {

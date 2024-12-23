@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { API } from "../utils/constants"; // Ensure API is defined in your constants
+import {API, BASEURL} from "../utils/constants"; // Ensure API is defined in your constants
 import { useSharedFile } from "../utils/useSharedFile";
+import axios from "axios";
 
 const Chat = () => {
     const { sharedFile } = useSharedFile();
@@ -14,54 +15,102 @@ const Chat = () => {
     }, [messages]);
 
     // Process the file upload response and display it in the chat
+    // useEffect(() => {
+    //     const processFileResponse = async () => {
+    //         if (!sharedFile) return;
+    //
+    //         try {
+    //             // Simulate API call to process uploaded file
+    //             const response = await fetch(`${API}/process-pdf`, {
+    //                 method: "POST",
+    //                 headers: {
+    //                     "Content-Type": "application/json",
+    //                 },
+    //                 body: JSON.stringify({ fileName: sharedFile.name }),
+    //             });
+    //
+    //             if (!response.ok) {
+    //                 throw new Error("Failed to process the uploaded file.");
+    //             }
+    //
+    //             const data = await response.json(); // Assume the API sends the structure you provided
+    //
+    //             // Display summary and sample questions in the chat
+    //             const summaryMessage = {
+    //                 role: "assistant",
+    //                 content: data.summary.content,
+    //             };
+    //
+    //             const sampleQuestionsMessage = {
+    //                 role: "assistant",
+    //                 content: data.sample_questions.content,
+    //             };
+    //
+    //             setMessages((prevMessages) => [
+    //                 ...prevMessages,
+    //                 { role: "bot", content: "PDF uploaded and processed successfully." },
+    //                 summaryMessage,
+    //                 sampleQuestionsMessage,
+    //             ]);
+    //         } catch (error) {
+    //             console.error("Error processing file:", error);
+    //             setMessages((prevMessages) => [
+    //                 ...prevMessages,
+    //                 { role: "bot", content: "Failed to process the uploaded PDF." },
+    //             ]);
+    //         }
+    //     };
+    //
+    //     processFileResponse();
+    // }, [sharedFile]);
+
+
+    const uploadFile = async (file) => {
+
+        const formData = new FormData();
+        formData.append("file", file);
+
+        try {
+            const response = await axios.post(BASEURL+'upload', formData);
+
+            // if (!response.ok) {
+            //     throw new Error("Failed to process the uploaded file.");
+            // }
+
+            const data = await response.data;
+
+            const summaryMessage = {
+                role: "assistant",
+                content: data.summary.content,
+            };
+
+            const sampleQuestionsMessage = {
+                role: "assistant",
+                content: data.sample_questions.content,
+            };
+
+            setMessages((prevMessages) => [
+                ...prevMessages,
+                { role: "bot", content: "PDF uploaded and processed successfully." },
+                summaryMessage,
+                sampleQuestionsMessage,
+            ]);
+
+        } catch (error) {
+            console.error("Error processing file:", error);
+            setMessages((prevMessages) => [
+                ...prevMessages,
+                { role: "bot", content: "Failed to process the uploaded PDF." },
+            ]);
+        } finally {
+            console.log("upload file callled")
+        }
+    };
+
     useEffect(() => {
-        const processFileResponse = async () => {
-            if (!sharedFile) return;
-
-            try {
-                // Simulate API call to process uploaded file
-                const response = await fetch(`${API}/process-pdf`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ fileName: sharedFile.name }),
-                });
-
-                if (!response.ok) {
-                    throw new Error("Failed to process the uploaded file.");
-                }
-
-                const data = await response.json(); // Assume the API sends the structure you provided
-
-                // Display summary and sample questions in the chat
-                const summaryMessage = {
-                    role: "assistant",
-                    content: data.summary.content,
-                };
-
-                const sampleQuestionsMessage = {
-                    role: "assistant",
-                    content: data.sample_questions.content,
-                };
-
-                setMessages((prevMessages) => [
-                    ...prevMessages,
-                    { role: "bot", content: "PDF uploaded and processed successfully." },
-                    summaryMessage,
-                    sampleQuestionsMessage,
-                ]);
-            } catch (error) {
-                console.error("Error processing file:", error);
-                setMessages((prevMessages) => [
-                    ...prevMessages,
-                    { role: "bot", content: "Failed to process the uploaded PDF." },
-                ]);
-            }
-        };
-
-        processFileResponse();
+        uploadFile(sharedFile)
     }, [sharedFile]);
+
 
     const handleSendMessage = async (e) => {
         e.preventDefault();
