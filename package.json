@@ -6,7 +6,7 @@
     "build": "parcel build"
   },
   "version": "1.0.0",
-  "description": "CareSimplify is an intelligent platform that leverages machine learning to analyze patient reports, providing simplified and human-understandable summaries. It enables users to upload reports and interact through a chat interface to gain deeper insights, ensuring clarity and informed care decisions.",
+  "description": "Care Simplify is an intelligent platform that leverages machine learning to analyze patient reports, providing simplified and human-understandable summaries. It enables users to upload reports and interact through a chat interface to gain deeper insights, ensuring clarity and informed care decisions.",
   "author": "Gunjan",
   "license": "MIT",
   "dependencies": {
