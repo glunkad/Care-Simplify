@@ -39,22 +39,22 @@ const Upload = () => {
                 BASEURL+'upload',
                 formData
             );
-            alert("File uploaded successfully!");
+            // alert("File uploaded successfully!");
         } catch (error) {
             console.error("Error uploading file:", error);
-            alert("File upload failed.");
+            // alert("File upload failed.");
         } finally {
             setIsUploading(false);
         }
     };
 
     return (
-        <div className="bg-orange-300 w-full p-0 flex justify-center items-center">
-            <div className="border-8 p-6 rounded-2xl bg-white border-transparent shrink-0">
+        <div className="bg-gray-100 w-full p-0 flex justify-center items-center">
+            <div className="border-8 p-6 rounded-2xl bg-white border-transparent shrink-0 shadow-2xl shadow-green-500">
                 {/* Clickable container */}
                 <label
                     htmlFor="fileInput"
-                    className="px-52 py-16 flex flex-col justify-center items-center cursor-pointer text-center border-2 rounded-xl border-dashed"
+                    className="px-52 py-16 flex flex-col justify-center items-center cursor-pointer text-center border-2 rounded-xl border-dashed border-green-600 hover:bg-green-100"
                 >
                     {/* Hidden file input */}
                     <input
@@ -74,7 +74,7 @@ const Upload = () => {
                     </div>
                     {/* Upload button */}
                     <div className="my-5">
-                        <button className="cursor-pointer overflow-hidden items-center bg-sky-400 inline-flex justify-center text-white flex-row h-12 rounded-lg" onClick={handleButtonClick}>
+                        <button className="cursor-pointer overflow-hidden items-center bg-green-600 inline-flex justify-center text-white flex-row h-12 rounded-lg hover:bg-green-800" onClick={handleButtonClick}>
                             <span className="flex px-6 items-center">
                                 <img
                                     src="https://www.chatpdf.com/_next/static/media/UploadArrowIcon.d1849693.svg"

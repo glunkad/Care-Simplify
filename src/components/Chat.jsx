@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import {API} from "../utils/constants";
+import { API } from "../utils/constants"; // Ensure API is defined in your constants
+import { useSharedFile } from "../utils/useSharedFile";
 
 const Chat = () => {
+    const { sharedFile } = useSharedFile();
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState("");
     const chatContainerRef = useRef(null);
@@ -11,63 +13,105 @@ const Chat = () => {
         chatContainerRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages]);
 
+    // Process the file upload response and display it in the chat
+    useEffect(() => {
+        const processFileResponse = async () => {
+            if (!sharedFile) return;
+
+            try {
+                // Simulate API call to process uploaded file
+                const response = await fetch(`${API}/process-pdf`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ fileName: sharedFile.name }),
+                });
+
+                if (!response.ok) {
+                    throw new Error("Failed to process the uploaded file.");
+                }
+
+                const data = await response.json(); // Assume the API sends the structure you provided
+
+                // Display summary and sample questions in the chat
+                const summaryMessage = {
+                    role: "assistant",
+                    content: data.summary.content,
+                };
+
+                const sampleQuestionsMessage = {
+                    role: "assistant",
+                    content: data.sample_questions.content,
+                };
+
+                setMessages((prevMessages) => [
+                    ...prevMessages,
+                    { role: "bot", content: "PDF uploaded and processed successfully." },
+                    summaryMessage,
+                    sampleQuestionsMessage,
+                ]);
+            } catch (error) {
+                console.error("Error processing file:", error);
+                setMessages((prevMessages) => [
+                    ...prevMessages,
+                    { role: "bot", content: "Failed to process the uploaded PDF." },
+                ]);
+            }
+        };
+
+        processFileResponse();
+    }, [sharedFile]);
+
     const handleSendMessage = async (e) => {
         e.preventDefault();
 
         if (input.trim() === "") return;
 
-        // Add the user's message to the state
         const userMessage = {
             role: "user",
             content: input,
         };
 
         setMessages((prevMessages) => [...prevMessages, userMessage]);
-        setInput(""); // Clear the input after sending
+        setInput("");
 
         try {
-            // Call Hugging Face API to get the bot response using fetch
-            const response = await fetch(
-                API,
-                {
-                    method: "POST",
-                    headers: {
-                        // "Authorization": "Bearer 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", // Replace with your Hugging Face API key
-                        "Authorization": TOKEN, // Replace with your Hugging Face API key
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        model: "meta-llama/Meta-Llama-3-8B-Instruct",
-                        messages: [{ role: "user", content: input }],
-                        max_tokens: 500,
-                        stream: false,
-                    }),
-                }
-            );
+            const response = await fetch(API, {
+                method: "POST",
+                headers: {
+                    "Authorization": "Bearer YOUR_TOKEN_HERE", // Replace with your token
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    model: "meta-llama/Meta-Llama-3-8B-Instruct",
+                    messages: [{ role: "user", content: input }],
+                    max_tokens: 500,
+                    stream: false,
+                }),
+            });
 
-            // Check if the response is okay
             if (!response.ok) {
                 throw new Error("Failed to fetch response from the API");
             }
 
-            const data = await response.json(); // Parse the response as JSON
+            const data = await response.json();
 
-            // Add the bot's response to the messages
             const botMessage = {
                 role: "bot",
-                content: data.choices[0].message.content, // Extract bot's message
+                content: data.choices[0].message.content,
             };
 
             setMessages((prevMessages) => [...prevMessages, botMessage]);
-
         } catch (error) {
             console.error("Error fetching response from API:", error);
-            // In case of an error, add a default error message from the bot
-            const botErrorMessage = {
-                role: "bot",
-                content: "Sorry, there was an error fetching the response from the bot.",
-            };
-            setMessages((prevMessages) => [...prevMessages, botErrorMessage]);
+            setMessages((prevMessages) => [
+                ...prevMessages,
+                {
+                    role: "bot",
+                    content: "Sorry, there was an error fetching the response from the bot.",
+                },
+            ]);
         }
     };
 
@@ -93,11 +137,11 @@ const Chat = () => {
 
             {/* Input Area */}
             <div className="bg-white p-4 shadow-md rounded-lg">
-                <form onSubmit={handleSendMessage} className="flex items-center space-x-4">
+                <form onSubmit={handleSendMessage} className="flex items-center space-x-1">
                     <input
                         type="text"
                         className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none"
-                        placeholder="Type a message..."
+                        placeholder="Ask any question ..."
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                     />
