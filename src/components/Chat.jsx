@@ -165,17 +165,17 @@ const Chat = () => {
     };
 
     return (
-        <div className="flex flex-col h-auto bg-gray-50 w-2/5">
+        <div className="flex flex-col h-auto bg-gray-50 w-3/6 text-sm">
             {/* Chat Messages Container */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4" ref={chatContainerRef}>
+            <div className="flex-1 overflow-y-auto p-4 space-y-2" ref={chatContainerRef}>
                 {messages.map((msg, index) => (
                     <div
                         key={index}
                         className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                     >
                         <div
-                            className={`max-w-[75%] p-3 rounded-lg ${
-                                msg.role === "user" ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-800"
+                            className={`max-w-[95%] p-3 rounded-lg ${
+                                msg.role === "user" ? "bg-blue-500 text-black" : "bg-gray-200 text-gray-800"
                             }`}
                         >
                             {msg.content}

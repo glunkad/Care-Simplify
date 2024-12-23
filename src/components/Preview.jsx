@@ -9,7 +9,10 @@ import { useSharedFile } from "../utils/useSharedFile";
 
 const Preview = () => {
     const { sharedFile } = useSharedFile();
-    const defaultLayoutPluginInstance = defaultLayoutPlugin();
+    const defaultLayoutPluginInstance = defaultLayoutPlugin({
+        sidebarTabs: (defaultTabs) => [],
+    });
+
     const [pdfUrl, setPdfUrl] = useState(null);
 
     useEffect(() => {
@@ -28,7 +31,7 @@ const Preview = () => {
 
     return (
         <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.15.349/build/pdf.worker.js">
-            <div className="w-3/5 h-auto bg-gray-100 flex flex-col items-center overflow-hidden">
+            <div className="w-3/6 h-auto bg-gray-100 flex flex-col items-center overflow-hidden">
                 {pdfUrl ? (
                     <Viewer fileUrl={pdfUrl} plugins={[defaultLayoutPluginInstance]} />
                 ) : (
