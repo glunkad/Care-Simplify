@@ -12,8 +12,8 @@
   "dependencies": {
     "@react-pdf-viewer/core": "3.6.0",
     "@react-pdf-viewer/default-layout": "3.6.0",
-    "pdfjs-dist": "2.15.349",
     "axios": "^1.7.8",
+    "pdfjs-dist": "2.15.349",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
