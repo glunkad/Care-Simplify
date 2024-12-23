@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import {API, TOKEN} from "../utils/constants";
+import {API} from "../utils/constants";
 
 const Chat = () => {
     const [messages, setMessages] = useState([]);
@@ -72,7 +72,7 @@ const Chat = () => {
     };
 
     return (
-        <div className="flex flex-col h-screen bg-gray-50">
+        <div className="flex flex-col h-auto bg-gray-50 w-2/5">
             {/* Chat Messages Container */}
             <div className="flex-1 overflow-y-auto p-4 space-y-4" ref={chatContainerRef}>
                 {messages.map((msg, index) => (

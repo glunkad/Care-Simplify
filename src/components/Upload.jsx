@@ -1,11 +1,13 @@
 import { useState } from "react";
 import axios from "axios";
-import useSharedFile from "../utils/useSharedFile";
+import { useSharedFile } from "../utils/useSharedFile";
+import {BASEURL} from "../utils/constants";
 
 const Upload = () => {
     const [fileName, setFileName] = useState("");
     const [isUploading, setIsUploading] = useState(false);
-    const { setFile } = useSharedFile();
+
+    const {setSharedFile } = useSharedFile();
 
     const handleButtonClick = () => {
         const fileInput = document.getElementById("fileInput");
@@ -17,7 +19,7 @@ const Upload = () => {
         if (selectedFile) {
             if (selectedFile.type === "application/pdf") {
                 setFileName(selectedFile.name);
-                setFile(selectedFile);
+                setSharedFile(selectedFile);
                 await uploadFile(selectedFile); // Automatically upload the file
             } else {
                 alert("Only PDF files are allowed.");
@@ -34,7 +36,7 @@ const Upload = () => {
 
         try {
             const response = await axios.post(
-                "https://services.techjivaaindia.in/commonutils/get_file",
+                BASEURL+'upload',
                 formData
             );
             alert("File uploaded successfully!");

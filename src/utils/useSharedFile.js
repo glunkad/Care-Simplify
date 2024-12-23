@@ -1,13 +1,17 @@
-import {useState} from "react";
+import React, { createContext, useContext, useState } from "react";
 
-const useSharedFile = () => {
-    const [sharedFile, setSharedFile] = useState(null)
+const SharedFileContext = createContext();
 
-    const setFile = (file) => {
-        setSharedFile(file)
-    }
+export const SharedFileProvider = ({ children }) => {
+    const [sharedFile, setSharedFile] = useState(null);
 
-    return {sharedFile, setFile}
-}
+    return (
+        <SharedFileContext.Provider value={{ sharedFile, setSharedFile }}>
+            {children}
+        </SharedFileContext.Provider>
+    );
+};
 
-export default useSharedFile;
+export const useSharedFile = () => {
+    return useContext(SharedFileContext);
+};
