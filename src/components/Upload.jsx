@@ -20,7 +20,6 @@ const Upload = () => {
             if (selectedFile.type === "application/pdf") {
                 setFileName(selectedFile.name);
                 setSharedFile(selectedFile);
-                await uploadFile(selectedFile); // Automatically upload the file
             } else {
                 alert("Only PDF files are allowed.");
                 event.target.value = ""; // Reset the file input
@@ -29,24 +28,6 @@ const Upload = () => {
         }
     };
 
-    const uploadFile = async (file) => {
-        setIsUploading(true);
-        const formData = new FormData();
-        formData.append("file", file);
-
-        try {
-            const response = await axios.post(
-                BASEURL+'upload',
-                formData
-            );
-            // alert("File uploaded successfully!");
-        } catch (error) {
-            console.error("Error uploading file:", error);
-            // alert("File upload failed.");
-        } finally {
-            setIsUploading(false);
-        }
-    };
 
     return (
         <div className="bg-gray-100 w-full p-0 flex justify-center items-center">

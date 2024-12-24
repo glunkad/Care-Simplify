@@ -14,57 +14,6 @@ const Chat = () => {
         chatContainerRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages]);
 
-    // Process the file upload response and display it in the chat
-    // useEffect(() => {
-    //     const processFileResponse = async () => {
-    //         if (!sharedFile) return;
-    //
-    //         try {
-    //             // Simulate API call to process uploaded file
-    //             const response = await fetch(`${API}/process-pdf`, {
-    //                 method: "POST",
-    //                 headers: {
-    //                     "Content-Type": "application/json",
-    //                 },
-    //                 body: JSON.stringify({ fileName: sharedFile.name }),
-    //             });
-    //
-    //             if (!response.ok) {
-    //                 throw new Error("Failed to process the uploaded file.");
-    //             }
-    //
-    //             const data = await response.json(); // Assume the API sends the structure you provided
-    //
-    //             // Display summary and sample questions in the chat
-    //             const summaryMessage = {
-    //                 role: "assistant",
-    //                 content: data.summary.content,
-    //             };
-    //
-    //             const sampleQuestionsMessage = {
-    //                 role: "assistant",
-    //                 content: data.sample_questions.content,
-    //             };
-    //
-    //             setMessages((prevMessages) => [
-    //                 ...prevMessages,
-    //                 { role: "bot", content: "PDF uploaded and processed successfully." },
-    //                 summaryMessage,
-    //                 sampleQuestionsMessage,
-    //             ]);
-    //         } catch (error) {
-    //             console.error("Error processing file:", error);
-    //             setMessages((prevMessages) => [
-    //                 ...prevMessages,
-    //                 { role: "bot", content: "Failed to process the uploaded PDF." },
-    //             ]);
-    //         }
-    //     };
-    //
-    //     processFileResponse();
-    // }, [sharedFile]);
-
-
     const uploadFile = async (file) => {
 
         const formData = new FormData();
@@ -72,10 +21,6 @@ const Chat = () => {
 
         try {
             const response = await axios.post(BASEURL+'upload', formData);
-
-            // if (!response.ok) {
-            //     throw new Error("Failed to process the uploaded file.");
-            // }
 
             const data = await response.data;
 
@@ -123,28 +68,20 @@ const Chat = () => {
         };
 
         setMessages((prevMessages) => [...prevMessages, userMessage]);
-        setInput("");
+
 
         try {
-            const response = await fetch(API, {
-                method: "POST",
-                headers: {
-                    "Authorization": "Bearer YOUR_TOKEN_HERE", // Replace with your token
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    model: "meta-llama/Meta-Llama-3-8B-Instruct",
-                    messages: [{ role: "user", content: input }],
-                    max_tokens: 500,
-                    stream: false,
-                }),
-            });
-
-            if (!response.ok) {
-                throw new Error("Failed to fetch response from the API");
+            const obj = {
+                role:"user",
+                content:input
             }
+            const response = await axios.post(API+'chat?question='+input);
+            console.log(response);
+            // if (!response.ok) {
+            //     throw new Error("Failed to fetch response from the API");
+            // }
 
-            const data = await response.json();
+            const data = await response.data;
 
             const botMessage = {
                 role: "bot",
@@ -162,7 +99,9 @@ const Chat = () => {
                 },
             ]);
         }
+        setInput("");
     };
+
 
     return (
         <div className="flex flex-col h-auto bg-gray-50 w-3/6 text-sm">
