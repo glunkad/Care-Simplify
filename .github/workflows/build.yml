@@ -10,7 +10,7 @@ on:
 
 jobs:
   build-and-test:
-    name: Build and Test Docker Image
+    name: Build and Deploy
     runs-on: ubuntu-latest
 
     steps:
