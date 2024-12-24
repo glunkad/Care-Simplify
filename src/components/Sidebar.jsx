@@ -1,4 +1,5 @@
-import SidebarIcon from "../assets/svgs/sidebar.svg";
+import SidebarLightIcon from "../assets/svgs/sidebar-light.svg";
+import SidebarDarkIcon from "../assets/svgs/sidebar-dark.svg";
 import { useState } from "react";
 
 const Sidebar = () => {
@@ -25,8 +26,9 @@ const Sidebar = () => {
                             />
                         </a>
                         <a href="#" onClick={handleOnClickSidebar}>
-                            <img src={SidebarIcon} alt="sidebar" className="h-8" />
+                            <img src={SidebarLightIcon} alt="sidebar" className="h-8"/>
                         </a>
+
                     </div>
                     <button
                         className="bg-green-600 text-white text-base py-2 border rounded-md border-transparent w-full hover:bg-green-800 my-7"
@@ -39,7 +41,7 @@ const Sidebar = () => {
             ) : (
                 <div className="fixed top-4 left-4">
                     <a href="#" onClick={handleOnClickSidebar}>
-                        <img src={SidebarIcon} alt="sidebar" className="h-8" />
+                        <img src={SidebarDarkIcon } alt="sidebar" className="h-8" />
                     </a>
                 </div>
             )}
