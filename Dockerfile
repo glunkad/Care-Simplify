@@ -14,16 +14,17 @@ RUN yarn install
 COPY . .
 
 # Step 6: Build the React app for production
-RUN yarn build || (echo "Build failed" && exit 1) && ls -la /app/build
+RUN yarn build || (echo "Build failed" && exit 1) && ls -la /app/dist
 
 # Step 7: Use an official Nginx image to serve the built app
 FROM nginx:alpine
 
 # Step 8: Copy the build output from the build stage into the nginx container
-COPY --from=build /app/build/ /usr/share/nginx/html/
+COPY --from=build /app/dist/ /usr/share/nginx/html/
 
 # Step 9: Expose port 80 for the web server
 EXPOSE 80
 
 # Step 10: Start Nginx to serve the app
 CMD ["nginx", "-g", "daemon off;"]
+
