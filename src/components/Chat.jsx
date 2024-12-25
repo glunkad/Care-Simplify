@@ -22,6 +22,10 @@ const Chat = () => {
         try {
             const response = await axios.post(BASEURL+'upload', formData);
 
+            // if (!response.ok) {
+            //     throw new Error("Failed to process the uploaded file.");
+            // }
+
             const data = await response.data;
 
             const summaryMessage = {
@@ -36,7 +40,7 @@ const Chat = () => {
 
             setMessages((prevMessages) => [
                 ...prevMessages,
-                { role: "bot", content: "PDF uploaded and processed successfully." },
+                { role: "bot", content: "Hello! 🎉" },
                 summaryMessage,
                 sampleQuestionsMessage,
             ]);
@@ -68,24 +72,23 @@ const Chat = () => {
         };
 
         setMessages((prevMessages) => [...prevMessages, userMessage]);
-
+        setInput("");
 
         try {
             const obj = {
                 role:"user",
                 content:input
             }
+
             const response = await axios.post(API+'chat?question='+input);
+
             console.log(response);
-            // if (!response.ok) {
-            //     throw new Error("Failed to fetch response from the API");
-            // }
 
             const data = await response.data;
 
             const botMessage = {
-                role: "bot",
-                content: data.choices[0].message.content,
+                role: data.answer.role,
+                content: data.answer.content,
             };
 
             setMessages((prevMessages) => [...prevMessages, botMessage]);
@@ -99,7 +102,7 @@ const Chat = () => {
                 },
             ]);
         }
-        setInput("");
+
     };
 
 
@@ -113,7 +116,7 @@ const Chat = () => {
                         className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                     >
                         <div
-                            className={`max-w-[95%] p-3 rounded-lg ${
+                            className={`max-w-[95%] rounded-lg ${
                                 msg.role === "user" ? "bg-blue-500 text-black" : "bg-gray-200 text-gray-800"
                             }`}
                         >
