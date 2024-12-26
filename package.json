@@ -1,6 +1,7 @@
 {
   "name": "care-simplify",
   "source": "index.html",
+  "homepage": "https://glunkad.github.io/Care-Simplify",
   "scripts": {
     "start": "parcel",
     "build": "parcel build"
