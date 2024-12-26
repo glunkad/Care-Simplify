@@ -16,7 +16,8 @@
     "ldrs": "^1.0.2",
     "pdfjs-dist": "2.15.349",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "svgo": "^3.3.2"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.20",
