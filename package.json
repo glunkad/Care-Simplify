@@ -1,10 +1,9 @@
 {
   "name": "care-simplify",
   "source": "index.html",
-  "homepage": "https://glunkad.github.io/Care-Simplify/",
   "scripts": {
     "start": "parcel",
-    "build": "parcel build"
+    "build": "parcel build --target care-simplify --public-url ./"
   },
   "version": "1.0.0",
   "description": "Care Simplify is an intelligent platform that leverages machine learning to analyze patient reports, providing simplified and human-understandable summaries. It enables users to upload reports and interact through a chat interface to gain deeper insights, ensuring clarity and informed care decisions.",
@@ -27,5 +26,11 @@
     "postcss": "^8.4.49",
     "process": "^0.11.10",
     "tailwindcss": "^3.4.15"
+  },
+  "targets": {
+    "care-simplify": {
+      "source": "index.html",
+      "distDir": "./dist"
+    }
   }
 }
