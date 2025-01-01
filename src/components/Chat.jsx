@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import {API, BASEURL} from "../utils/constants"; // Ensure API is defined in your constants
+import {CHAT, UPLOAD} from "../utils/constants"; // Ensure API is defined in your constants
 import { useSharedFile } from "../utils/useSharedFile";
 import axios from "axios";
 import Loader from "./Loader";
@@ -22,7 +22,7 @@ const Chat = () => {
         formData.append("file", file);
 
         try {
-            const response = await axios.post(BASEURL+'upload', formData);
+            const response = await axios.post(UPLOAD, formData);
 
             // if (!response.ok) {
             //     throw new Error("Failed to process the uploaded file.");
@@ -83,7 +83,7 @@ const Chat = () => {
                 content:input
             }
 
-            const response = await axios.post(API+'chat?question='+input);
+        const response = await axios.post(CHAT+'?question='+input);
 
             console.log(response);
 

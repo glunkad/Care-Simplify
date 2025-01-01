@@ -1,7 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
 import { useSharedFile } from "../utils/useSharedFile";
-import {BASEURL} from "../utils/constants";
 
 const Upload = () => {
     const [fileName, setFileName] = useState("");
@@ -30,7 +28,11 @@ const Upload = () => {
 
 
     return (
-        <div className="bg-gray-100 w-full p-0 flex justify-center items-center">
+        // <div className="bg-gray-100 w-full p-0 flex justify-center items-center flex-col">
+        <div className="bg-gradient-to-r from-indigo-100 from-20% via-sky-100 via-30% to-emerald-100 to-100% w-full p-0 flex justify-center items-center flex-col">
+            <div>
+                <h1 className="text-5xl my-2.5">Chat with any Clinical Report</h1>
+            </div>
             <div className="border-8 p-6 rounded-2xl bg-white border-transparent shrink-0 shadow-2xl shadow-green-500">
                 {/* Clickable container */}
                 <label

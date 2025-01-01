@@ -39,7 +39,7 @@ const Sidebar = () => {
                     </button>
                 </aside>
             ) : (
-                <div className="fixed top-4 left-4">
+                <div className="fixed top-4 left-4 w-12">
                     <a href="#" onClick={handleOnClickSidebar}>
                         <img src={SidebarDarkIcon } alt="sidebar" className="h-8" />
                     </a>
