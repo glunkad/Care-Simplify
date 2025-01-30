@@ -17,7 +17,7 @@ const Sidebar = () => {
     return (
         <>
             {panel ? (
-                <aside className="bg-neutral-800 w-64 shrink-0 p-3">
+                <aside className="w-full bg-neutral-800  shrink-0 p-3 sm:w-64">
                     <div className="flex items-center justify-between">
                         <a href="#">
                             <img

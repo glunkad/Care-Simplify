@@ -1,19 +1,12 @@
 import SidebarLightIcon from "../assets/svgs/sidebar-light.svg";
-import { useState } from "react";
 
-const Navbar = () => {
-    const [panel, setPanel] = useState(true);
-
-    const handleOnClickSidebar = () => {
-        setPanel((prevPanel) => !prevPanel);
-    };
-
+const Navbar = ({ toggleSidebar }) => {
     return (
-        <div className="h-14 w-full bg-emerald-600 flex items-center px-4 relative">
+        <div className="h-14 w-full bg-emerald-600 flex items-center px-4 relative sm:hidden">
             {/* Sidebar Button (Left-Aligned) */}
-            <a href="#" onClick={handleOnClickSidebar} className="flex items-center">
+            <button onClick={toggleSidebar} className="flex items-center">
                 <img src={SidebarLightIcon} alt="sidebar" className="h-8" />
-            </a>
+            </button>
 
             {/* Centered Logo */}
             <div className="absolute left-1/2 transform -translate-x-1/2">
