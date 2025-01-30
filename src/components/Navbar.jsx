@@ -1,27 +1,32 @@
 import SidebarLightIcon from "../assets/svgs/sidebar-light.svg";
-import {useState} from "react";
+import { useState } from "react";
 
 const Navbar = () => {
-
     const [panel, setPanel] = useState(true);
 
     const handleOnClickSidebar = () => {
-        setPanel(prevPanel => !prevPanel);
+        setPanel((prevPanel) => !prevPanel);
     };
 
     return (
-        <div className="h-14 w-full bg-emerald-600 flex items-center gap-28 px-4">
-            <a href="#" onClick={handleOnClickSidebar}>
-                <img src={SidebarLightIcon} alt="sidebar" className="h-8"/>
+        <div className="h-14 w-full bg-emerald-600 flex items-center px-4 relative">
+            {/* Sidebar Button (Left-Aligned) */}
+            <a href="#" onClick={handleOnClickSidebar} className="flex items-center">
+                <img src={SidebarLightIcon} alt="sidebar" className="h-8" />
             </a>
-            <a href="#">
-                <img
-                    src="https://www.chatpdf.com/_next/static/media/SidebarLogo.243d2948.svg"
-                    alt="Care Simplify"
-                />
-            </a>
+
+            {/* Centered Logo */}
+            <div className="absolute left-1/2 transform -translate-x-1/2">
+                <a href="#">
+                    <img
+                        src="https://www.chatpdf.com/_next/static/media/SidebarLogo.243d2948.svg"
+                        alt="Care Simplify"
+                        className="h-8"
+                    />
+                </a>
+            </div>
         </div>
-    )
-}
+    );
+};
 
 export default Navbar;
