@@ -29,15 +29,15 @@ const Upload = () => {
 
     return (
         // <div className="bg-gray-100 w-full p-0 flex justify-center items-center flex-col">
-        <div className="bg-gradient-to-r from-indigo-100 from-20% via-sky-100 via-30% to-emerald-100 to-100% w-full p-0 flex justify-center items-center flex-col">
+        <div className="bg-gradient-to-r from-indigo-100 from-20% via-sky-100 via-30% to-emerald-100 to-100% w-full flex flex-col justify-center items-center ">
             <div>
                 <h1 className="text-5xl my-2.5">Chat with any Clinical Report</h1>
             </div>
-            <div className="border-8 p-6 rounded-2xl bg-white border-transparent shrink-0 shadow-2xl shadow-green-500">
+            <div className="border-8 p-6 rounded-2xl bg-white border-transparent shrink-0 shadow-2xl shadow-green-500 sm: p-2">
                 {/* Clickable container */}
                 <label
                     htmlFor="fileInput"
-                    className="px-52 py-16 flex flex-col justify-center items-center cursor-pointer text-center border-2 rounded-xl border-dashed border-green-600 hover:bg-green-100"
+                    className="px-52 py-16 flex flex-col justify-center items-center cursor-pointer text-center border-2 rounded-xl border-dashed border-green-600 hover:bg-green-100 sm: px-36  py-12"
                 >
                     {/* Hidden file input */}
                     <input
@@ -68,14 +68,6 @@ const Upload = () => {
                             </span>
                         </button>
                     </div>
-                    {/* Display selected file name */}
-                    {/*{fileName && (*/}
-                    {/*    <p className="text-green-600 mt-2">Selected file: {fileName}</p>*/}
-                    {/*)}*/}
-                    {/* Uploading indicator */}
-                    {/*{isUploading && (*/}
-                    {/*    <p className="text-blue-500 mt-2">Uploading file...</p>*/}
-                    {/*)}*/}
                 </label>
             </div>
         </div>
