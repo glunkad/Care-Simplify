@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useSharedFile } from "../utils/useSharedFile";
+import uploadIcon from "../assets/svgs/upload.svg";
 
 const Upload = () => {
     const [fileName, setFileName] = useState("");
@@ -60,7 +61,7 @@ const Upload = () => {
                         <button className="cursor-pointer overflow-hidden items-center bg-green-600 inline-flex justify-center text-white flex-row h-12 rounded-lg hover:bg-green-800" onClick={handleButtonClick}>
                             <span className="flex px-6 items-center">
                                 <img
-                                    src="https://www.svgrepo.com/show/505799/upload.svg"
+                                    src={uploadIcon}
                                     alt="Upload Icon"
                                     className="text-transparent h-8"
                                 />
@@ -73,5 +74,6 @@ const Upload = () => {
         </div>
     );
 };
+
 
 export default Upload;

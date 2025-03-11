@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import {CHAT, UPLOAD} from "../utils/constants"; // Ensure API is defined in your constants
+import {CHAT, UPLOAD} from "../utils/constants";
 import { useSharedFile } from "../utils/useSharedFile";
 import axios from "axios";
 import Loader from "./Loader";
@@ -11,7 +11,6 @@ const Chat = () => {
     const chatContainerRef = useRef(null);
     const [loading, setLoading] = useState(true);
 
-    // Scroll to bottom whenever new message is added
     useEffect(() => {
         chatContainerRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages]);
