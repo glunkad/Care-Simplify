@@ -48,7 +48,7 @@ const Upload = () => {
                         onChange={handleFileChange}
                     />
                     <img
-                        src="https://www.chatpdf.com/_next/static/media/UploadFileIcon.d8bf32b8.svg"
+                        src="https://www.svgrepo.com/show/444714/file-upload.svg"
                         alt="Upload Icon"
                         className="h-20 w-16"
                     />
@@ -60,9 +60,9 @@ const Upload = () => {
                         <button className="cursor-pointer overflow-hidden items-center bg-green-600 inline-flex justify-center text-white flex-row h-12 rounded-lg hover:bg-green-800" onClick={handleButtonClick}>
                             <span className="flex px-6 items-center">
                                 <img
-                                    src="https://www.chatpdf.com/_next/static/media/UploadArrowIcon.d1849693.svg"
+                                    src="https://www.svgrepo.com/show/505799/upload.svg"
                                     alt="Upload Icon"
-                                    className="text-transparent"
+                                    className="text-transparent h-8"
                                 />
                                 <span className="mx-6">Upload PDF</span>
                             </span>
