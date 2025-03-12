@@ -36,7 +36,7 @@ const Upload = () => {
                 <label
                     htmlFor="fileInput"
                     className="flex flex-col justify-center items-center cursor-pointer text-center border-2 rounded-xl border-dashed border-green-600 hover:bg-green-100
-                    p-12 sm:p-14 md:p-16 lg:p-20 w-72 sm:w-96 md:w-[26rem] lg:w-[42rem]"
+                    p-12 sm:p-14 md:p-16 lg:p-20 w-72 sm:w-96 md:w-[30rem] lg:w-[42rem]"
                 >
                     <input
                         type="file"
