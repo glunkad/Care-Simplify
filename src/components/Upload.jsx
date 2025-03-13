@@ -2,13 +2,14 @@ import { useState } from "react";
 import { useSharedFile } from "../utils/useSharedFile";
 import uploadIcon from "../assets/svgs/upload.svg";
 
-const Upload = () => {
+const Upload = ({toggleSidebar}) => {
     const [fileName, setFileName] = useState("");
     const [isUploading, setIsUploading] = useState(false);
 
     const { setSharedFile } = useSharedFile();
 
     const handleButtonClick = () => {
+        toggleSidebar();
         const fileInput = document.getElementById("fileInput");
         if (fileInput) fileInput.click();
     };

@@ -16,17 +16,10 @@ const Body = () => {
 
     return (
         <div className="flex flex-col h-screen w-full">
-            <Navbar toggleSidebar={toggleSidebar} />
-            <div className="flex flex-row h-full w-full ">
+            <Navbar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+            <div className="flex flex-row h-full w-full">
                 <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-                {sharedFile ? (
-                    <>
-                        <Preview />
-                        <Chat />
-                    </>
-                ) : (
-                    <Upload />
-                )}
+                {sharedFile ? <><Preview /><Chat /></> : <Upload toggleSidebar={toggleSidebar} />}
             </div>
         </div>
     );
