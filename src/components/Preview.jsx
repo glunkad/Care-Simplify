@@ -10,7 +10,7 @@ import { useSharedFile } from "../utils/useSharedFile";
 const Preview = () => {
     const { sharedFile } = useSharedFile();
     const defaultLayoutPluginInstance = defaultLayoutPlugin({
-        sidebarTabs: (defaultTabs) => [],
+        sidebarTabs: () => [], // Remove sidebar tabs
     });
 
     const [pdfUrl, setPdfUrl] = useState(null);
@@ -19,19 +19,16 @@ const Preview = () => {
         if (sharedFile) {
             const url = URL.createObjectURL(sharedFile);
             setPdfUrl(url);
-
-            // Clean up the URL when the component unmounts or the file changes
-            return () => {
-                URL.revokeObjectURL(url);
-            };
+            return () => URL.revokeObjectURL(url);
         } else {
-            setPdfUrl(null); // Clear the URL if no file is uploaded
+            setPdfUrl(null);
         }
     }, [sharedFile]);
 
     return (
         <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.15.349/build/pdf.worker.js">
-            <div className="w-3/6 h-auto bg-gray-100 flex flex-col items-center overflow-hidden">
+            {/* Hide on mobile (sm:hidden) and show only on sm and larger screens */}
+            <div className="hidden sm:block w-3/6 h-auto bg-gray-100 flex flex-col items-center overflow-hidden">
                 {pdfUrl ? (
                     <Viewer fileUrl={pdfUrl} plugins={[defaultLayoutPluginInstance]} />
                 ) : (

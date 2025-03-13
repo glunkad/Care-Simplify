@@ -109,7 +109,7 @@ const Chat = () => {
 
 
     return (
-        <div className="flex flex-col h-auto bg-gray-50 w-3/6 text-sm">
+        <div className="flex flex-col h-auto bg-gray-50 w-full sm:w-3/6 text-sm">
             {loading ? (
                 <div className="flex items-center justify-center h-full">
                     <Loader isVisible={loading}/>
