@@ -70,7 +70,7 @@ const Chat = () => {
     };
 
     return (
-        <div className="flex h-screen flex-col bg-white text-gray-800 sm:w-1/2">
+        <div className="flex h-screen flex-col bg-white text-gray-800 w-full sm:w-1/2">
             {loading ? (
                 <div className="flex h-full items-center justify-center">
                     <Loader isVisible={loading} />
@@ -130,7 +130,7 @@ const Chat = () => {
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
                                         strokeWidth="2"
-                                        d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+                                        d="M5 12h14M12 5l7 7-7 7"
                                     />
                                 </svg>
                             </button>
