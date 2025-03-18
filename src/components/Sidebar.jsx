@@ -20,7 +20,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => (
             </button>
         </aside>
     ) : (
-        <div className="fixed top-4 left-4 w-12 md:none">
+        <div className="fixed top-4 left-4 w-12 hidden md:block">
             <button onClick={toggleSidebar}>
                 <img src={SidebarDarkIcon} alt="sidebar" className="h-8" />
             </button>
